@@ -7,7 +7,7 @@ Pre-built Docker image for [Moltbot](https://github.com/moltbot/moltbot) — run
 ### Linux / macOS
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/phioranex/moltbot-docker/main/install.sh | bash
+bash <(curl -fsSL https://raw.githubusercontent.com/phioranex/moltbot-docker/main/install.sh)
 ```
 
 ### Windows (PowerShell)
@@ -35,16 +35,16 @@ This will:
 
 ```bash
 # Just pull the image (no setup)
-curl -fsSL https://raw.githubusercontent.com/phioranex/moltbot-docker/main/install.sh | bash -s -- --pull-only
+bash <(curl -fsSL https://raw.githubusercontent.com/phioranex/moltbot-docker/main/install.sh) --pull-only
 
 # Skip onboarding (if already configured)
-curl -fsSL https://raw.githubusercontent.com/phioranex/moltbot-docker/main/install.sh | bash -s -- --skip-onboard
+bash <(curl -fsSL https://raw.githubusercontent.com/phioranex/moltbot-docker/main/install.sh) --skip-onboard
 
 # Don't start gateway after setup
-curl -fsSL https://raw.githubusercontent.com/phioranex/moltbot-docker/main/install.sh | bash -s -- --no-start
+bash <(curl -fsSL https://raw.githubusercontent.com/phioranex/moltbot-docker/main/install.sh) --no-start
 
 # Custom install directory
-curl -fsSL https://raw.githubusercontent.com/phioranex/moltbot-docker/main/install.sh | bash -s -- --install-dir /opt/moltbot
+bash <(curl -fsSL https://raw.githubusercontent.com/phioranex/moltbot-docker/main/install.sh) --install-dir /opt/moltbot
 ```
 
 **Windows (PowerShell):**

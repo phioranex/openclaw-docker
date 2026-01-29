@@ -4,10 +4,10 @@
 # One-command setup for Moltbot on Docker
 #
 # Usage:
-#   curl -fsSL https://raw.githubusercontent.com/phioranex/moltbot-docker/main/install.sh | bash
+#   bash <(curl -fsSL https://raw.githubusercontent.com/phioranex/moltbot-docker/main/install.sh)
 #
 # Or with options:
-#   curl -fsSL https://raw.githubusercontent.com/phioranex/moltbot-docker/main/install.sh | bash -s -- --no-start
+#   bash <(curl -fsSL https://raw.githubusercontent.com/phioranex/moltbot-docker/main/install.sh) --no-start
 #
 
 set -e
@@ -188,7 +188,7 @@ if [ "$SKIP_ONBOARD" = false ]; then
     log_step "Initializing Moltbot configuration..."
     echo -e "${YELLOW}Setting up configuration and workspace...${NC}\n"
     
-    # Run setup to initialize config and workspace
+    # Run setup to initialize config and workspace (no interaction needed)
     if ! $COMPOSE_CMD run $DOCKER_TTY_FLAG --rm moltbot-cli setup; then
         log_error "Setup failed"
         echo -e "${RED}Failed to initialize configuration. Please check Docker logs.${NC}"
@@ -200,9 +200,9 @@ if [ "$SKIP_ONBOARD" = false ]; then
     echo -e "${YELLOW}This will configure your AI provider and channels.${NC}"
     echo -e "${YELLOW}Follow the prompts to complete setup.${NC}\n"
     
-    # Run onboarding
-    if ! $COMPOSE_CMD run $DOCKER_TTY_FLAG --rm moltbot-cli onboard; then
-        log_warning "Onboarding wizard was skipped or failed"
+    # Run onboarding interactively (works with bash process substitution)
+    if ! $COMPOSE_CMD run --rm moltbot-cli onboard; then
+        log_warning "Onboarding was cancelled or failed"
         echo -e "${YELLOW}You can run it later with:${NC} cd $INSTALL_DIR && $COMPOSE_CMD run --rm moltbot-cli onboard"
     else
         log_success "Onboarding complete!"
