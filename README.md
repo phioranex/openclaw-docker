@@ -37,13 +37,13 @@ curl -fsSL https://raw.githubusercontent.com/phioranex/moltbot-docker/main/insta
 
 ```bash
 # Pull the image
-docker pull ghcr.io/phioranex/moltbot:latest
+docker pull ghcr.io/phioranex/moltbot-docker:latest
 
 # Run onboarding (first time setup)
 docker run -it --rm \
   -v ~/.clawdbot:/home/node/.clawdbot \
   -v ~/clawd:/home/node/clawd \
-  ghcr.io/phioranex/moltbot:latest onboard
+  ghcr.io/phioranex/moltbot-docker:latest onboard
 
 # Start the gateway
 docker run -d \
@@ -52,7 +52,7 @@ docker run -d \
   -v ~/.clawdbot:/home/node/.clawdbot \
   -v ~/clawd:/home/node/clawd \
   -p 18789:18789 \
-  ghcr.io/phioranex/moltbot:latest gateway start --foreground
+  ghcr.io/phioranex/moltbot-docker:latest gateway start --foreground
 ```
 
 ### Using Docker Compose

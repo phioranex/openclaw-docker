@@ -23,7 +23,7 @@ NC='\033[0m' # No Color
 
 # Config
 INSTALL_DIR="${MOLTBOT_INSTALL_DIR:-$HOME/moltbot}"
-IMAGE="ghcr.io/phioranex/moltbot:latest"
+IMAGE="ghcr.io/phioranex/moltbot-docker:latest"
 REPO_URL="https://github.com/phioranex/moltbot-docker"
 COMPOSE_URL="https://raw.githubusercontent.com/phioranex/moltbot-docker/main/docker-compose.yml"
 

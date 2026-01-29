@@ -1,6 +1,6 @@
 services:
   moltbot-gateway:
-    image: ghcr.io/phioranex/moltbot:latest
+    image: ghcr.io/phioranex/moltbot-docker:latest
     container_name: moltbot-gateway
     restart: unless-stopped
     stdin_open: true
@@ -15,7 +15,7 @@ services:
     command: ["gateway", "start"]
 
   moltbot-cli:
-    image: ghcr.io/phioranex/moltbot:latest
+    image: ghcr.io/phioranex/moltbot-docker:latest
     container_name: moltbot-cli
     stdin_open: true
     tty: true
