@@ -235,9 +235,10 @@ echo -e "${GREEN}║                                                            
 echo -e "${GREEN}╚══════════════════════════════════════════════════════════════╝${NC}"
 
 echo -e "\n${BOLD}Quick reference:${NC}"
-echo -e "  ${CYAN}Dashboard:${NC}      http://localhost:18789"
+echo -e "  ${CYAN}Dashboard:${NC}      http://localhost:18790/?token=YOUR_TOKEN"
+echo -e "  ${CYAN}GET TOKEN:${NC}      http://localhost:18790/?token=YOUR_TOKEN"
 echo -e "  ${CYAN}Config:${NC}         ~/.openclaw/"
-echo -e "  ${CYAN}Workspace:${NC}      ~/.openclaw/workspace/"
+echo -e "  ${CYAN}Workspace:${NC}      cat ~/.openclaw/openclaw.json| grep '"token":' | grep -v '"mode"' | cut -d '\"' -f4"
 echo -e "  ${CYAN}Install dir:${NC}    $INSTALL_DIR"
 
 echo -e "\n${BOLD}Useful commands:${NC}"

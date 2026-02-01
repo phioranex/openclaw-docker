@@ -10,6 +10,7 @@ services:
       - ~/.openclaw/workspace:/home/node/.openclaw/workspace
     ports:
       - "18789:18789"
+      - "18790:18790"
     environment:
       - NODE_ENV=production
       - OPENCLAW_SKIP_SERVICE_CHECK=true
