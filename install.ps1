@@ -109,12 +109,19 @@ if (Test-Command docker) {
 
 # Check Docker Compose
 $ComposeCmd = ""
+$ComposeExe = ""
+$ComposeBaseArgs = @()
+
 if (docker compose version 2>$null) {
     Write-Success "Docker Compose found (plugin)"
     $ComposeCmd = "docker compose"
+    $ComposeExe = "docker"
+    $ComposeBaseArgs = @("compose")
 } elseif (Test-Command docker-compose) {
     Write-Success "Docker Compose found (standalone)"
     $ComposeCmd = "docker-compose"
+    $ComposeExe = "docker-compose"
+    $ComposeBaseArgs = @()
 } else {
     Write-Error "Docker Compose not found"
     Write-Host ""
@@ -177,7 +184,7 @@ if (-not $SkipOnboard) {
     Write-Host ""
     
     # Run onboarding
-    & $ComposeCmd.Split() run -T --rm openclaw-cli onboard
+    & $ComposeExe $ComposeBaseArgs run -T --rm openclaw-cli onboard
     if ($LASTEXITCODE -ne 0) {
         Write-Warning "Onboarding wizard was skipped or failed"
         Write-Host "You can run it later with: cd $InstallDir && $ComposeCmd run --rm openclaw-cli onboard" -ForegroundColor Yellow
@@ -189,7 +196,7 @@ if (-not $SkipOnboard) {
 # Start gateway
 if (-not $NoStart) {
     Write-Step "Starting OpenClaw gateway..."
-    & $ComposeCmd.Split() up -d openclaw-gateway
+    & $ComposeExe $ComposeBaseArgs up -d openclaw-gateway
     
     # Wait for gateway to be ready
     Write-Host "Waiting for gateway to start" -NoNewline
