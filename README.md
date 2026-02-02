@@ -10,13 +10,13 @@ Pre-built Docker image for [OpenClaw](https://github.com/openclaw/openclaw) — 
 ### Linux / macOS
 
 ```bash
-bash <(curl -fsSL https://raw.githubusercontent.com/phioranex/openclaw-docker/main/install.sh)
+bash <(curl -fsSL https://raw.githubusercontent.com/vaibhav-singh2/openclaw-docker/main/install.sh)
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-irm https://raw.githubusercontent.com/phioranex/openclaw-docker/main/install.ps1 | iex
+irm https://raw.githubusercontent.com/vaibhav-singh2/openclaw-docker/main/install.ps1 | iex
 ```
 
 > **Note for Windows users:** Make sure Docker Desktop is installed and running. You can also use WSL2 with the Linux installation command.
@@ -172,4 +172,12 @@ Config is stored in `~/.openclaw/` and persists across container restarts.
 
 This Docker packaging is provided by [Phioranex](https://phioranex.com).
 OpenClaw itself is licensed under MIT — see the [original repo](https://github.com/openclaw/openclaw).
+
+## GitHub Actions Configuration
+
+To build and push the image to GHCR from your fork, satisfy the following:
+
+1.  **Permissions**: Go to `Settings` -> `Actions` -> `General` -> `Workflow permissions` and select **Read and write permissions**.
+2.  **Secrets**: No secrets are needed if pushing to the fork's own package registry (defaults to `GITHUB_TOKEN`).
+
 ```

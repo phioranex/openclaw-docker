@@ -3,10 +3,10 @@
 # One-command setup for OpenClaw on Docker for Windows
 #
 # Usage:
-#   irm https://raw.githubusercontent.com/phioranex/openclaw-docker/main/install.ps1 | iex
+#   irm https://raw.githubusercontent.com/vaibhav-singh2/openclaw-docker/main/install.ps1 | iex
 #
 # Or with options:
-#   & ([scriptblock]::Create((irm https://raw.githubusercontent.com/phioranex/openclaw-docker/main/install.ps1))) -NoStart
+#   & ([scriptblock]::Create((irm https://raw.githubusercontent.com/vaibhav-singh2/openclaw-docker/main/install.ps1))) -NoStart
 #
 
 param(
@@ -18,9 +18,9 @@ param(
 )
 
 # Config
-$Image = "ghcr.io/phioranex/openclaw-docker:latest"
-$RepoUrl = "https://github.com/phioranex/openclaw-docker"
-$ComposeUrl = "https://raw.githubusercontent.com/phioranex/openclaw-docker/main/docker-compose.yml"
+$Image = "ghcr.io/vaibhav-singh2/openclaw-docker:latest"
+$RepoUrl = "https://github.com/vaibhav-singh2/openclaw-docker"
+$ComposeUrl = "https://raw.githubusercontent.com/vaibhav-singh2/openclaw-docker/main/docker-compose.yml"
 
 # Error handling
 $ErrorActionPreference = "Stop"
