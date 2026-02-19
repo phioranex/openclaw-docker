@@ -65,7 +65,7 @@ jobs:
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             VERSION="${{ inputs.openclaw_version }}"
           else
-            VERSION="main"
+            VERSION=$(cat .last-openclaw-version)
           fi
           echo "openclaw_version=${VERSION}" >> $GITHUB_OUTPUT
           echo "Building with OpenClaw version: ${VERSION}"
