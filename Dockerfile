@@ -41,34 +41,11 @@ ENV PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:${PATH}
 ENV HOMEBREW_NO_AUTO_UPDATE=1
 ENV HOMEBREW_NO_INSTALL_CLEANUP=1
 
-# Enable corepack for pnpm
-RUN corepack enable
-
-WORKDIR /app
-
-# Clone and build OpenClaw - always fetch latest from main branch
-ARG OPENCLAW_VERSION=main
-RUN git clone --depth 1 --branch ${OPENCLAW_VERSION} https://github.com/openclaw/openclaw.git . && \
-    echo "Building OpenClaw from branch: ${OPENCLAW_VERSION}" && \
-    git rev-parse HEAD > /app/openclaw-commit.txt
-
-# Install dependencies
-RUN pnpm install --frozen-lockfile
-
-# Build
-RUN OPENCLAW_A2UI_SKIP_MISSING=1 pnpm build
-# Force pnpm for UI build (Bun may fail on ARM/Synology architectures)
-RUN npm_config_script_shell=bash pnpm ui:install
-RUN npm_config_script_shell=bash pnpm ui:build
-
-# Clean up build artifacts to reduce image size
-RUN rm -rf .git node_modules/.cache
-
 # Create app user (node already exists in base image)
 # Add node user to linuxbrew group for Homebrew access
 # Fix permissions for global npm installs
 RUN mkdir -p /home/node/.openclaw /home/node/.openclaw/workspace \
-    && chown -R node:node /home/node /app \
+    && chown -R node:node /home/node \
     && chmod -R 755 /home/node/.openclaw \
     && usermod -aG linuxbrew node \
     && chmod -R g+w /home/linuxbrew/.linuxbrew \
@@ -85,6 +62,28 @@ RUN mkdir -p /usr/local/share/ca-certificates && \
     chmod 644 /usr/local/share/ca-certificates/ca-certificates.crt
 
 USER node
+WORKDIR /app
+
+# Enable corepack for pnpm
+RUN corepack enable
+
+# Clone and build OpenClaw - always fetch latest from main branch
+ARG OPENCLAW_VERSION=main
+RUN git clone --depth 1 --branch ${OPENCLAW_VERSION} https://github.com/openclaw/openclaw.git . && \
+    echo "Building OpenClaw from branch: ${OPENCLAW_VERSION}" && \
+    git rev-parse HEAD > /app/openclaw-commit.txt
+
+# Install dependencies
+RUN pnpm install --verbose --frozen-lockfile
+
+# Build
+RUN OPENCLAW_A2UI_SKIP_MISSING=1 pnpm build
+# Force pnpm for UI build (Bun may fail on ARM/Synology architectures)
+RUN npm_config_script_shell=bash pnpm ui:install
+RUN npm_config_script_shell=bash pnpm ui:build
+
+# Clean up build artifacts to reduce image size
+RUN rm -rf .git node_modules/.cache
 
 # Install Playwright browsers for the node user
 # Use NODE_EXTRA_CA_CERTS to point to accessible certificate bundle
