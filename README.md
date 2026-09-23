@@ -103,6 +103,31 @@ docker compose run --rm openclaw-cli onboard
 docker compose up -d openclaw-gateway
 ```
 
+## Unraid
+
+An Unraid Community Applications template is available in [`templates/openclaw.xml`](templates/openclaw.xml).
+
+Before adding the container for the first time, initialize its configuration and set the Gateway to listen on the Docker network. Replace `192.168.1.10` with the Unraid server's IP address (add a hostname origin too if you use one):
+
+```bash
+mkdir -p /mnt/user/appdata/openclaw
+chown -R 1000:1000 /mnt/user/appdata/openclaw
+
+docker run --rm -it \
+  -v /mnt/user/appdata/openclaw:/home/node/.openclaw \
+  ghcr.io/phioranex/openclaw-docker:latest \
+  onboard --mode local --no-install-daemon
+
+docker run --rm \
+  -v /mnt/user/appdata/openclaw:/home/node/.openclaw \
+  ghcr.io/phioranex/openclaw-docker:latest \
+  config set --batch-json '[{"path":"gateway.mode","value":"local"},{"path":"gateway.bind","value":"lan"},{"path":"gateway.controlUi.allowedOrigins","value":["http://192.168.1.10:18789"]}]'
+```
+
+Add `https://github.com/phioranex/openclaw-docker` to Unraid's Community Applications template repositories, then install **OpenClaw** from the Apps tab. The template stores configuration and workspace data in `/mnt/user/appdata/openclaw` and publishes the Gateway on port `18789`.
+
+Open the WebUI from the Docker tab and enter the token generated during onboarding. Keep the Gateway token enabled and limit access to your trusted network; do not forward port `18789` directly to the public internet.
+
 ## Configuration
 
 During onboarding, you'll configure:
