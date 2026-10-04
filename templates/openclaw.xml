@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>OpenClaw</Name>
+  <Repository>ghcr.io/phioranex/openclaw-docker:latest</Repository>
+  <Registry>https://github.com/phioranex/openclaw-docker/pkgs/container/openclaw-docker</Registry>
+  <Network>bridge</Network>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/phioranex/openclaw-docker/issues</Support>
+  <Project>https://github.com/phioranex/openclaw-docker</Project>
+  <Overview>OpenClaw personal AI assistant Gateway. Requires first-time onboarding and a Gateway token. Configuration and workspace data persist in the mapped appdata directory.</Overview>
+  <Category>Tools:Other</Category>
+  <TemplateURL>https://raw.githubusercontent.com/phioranex/openclaw-docker/main/templates/openclaw.xml</TemplateURL>
+  <WebUI>http://[IP]:[PORT:18789]/</WebUI>
+  <PostArgs>gateway start --foreground</PostArgs>
+  <Config Name="Gateway WebUI/API" Target="18789" Default="18789" Mode="tcp" Description="OpenClaw Gateway HTTP and WebSocket port" Type="Port" Display="always" Required="true">18789</Config>
+  <Config Name="OpenClaw Config and Workspace" Target="/home/node/.openclaw" Default="/mnt/user/appdata/openclaw" Mode="rw" Description="Persistent OpenClaw configuration, credentials, sessions, and workspace" Type="Path" Display="always" Required="true">/mnt/user/appdata/openclaw</Config>
+  <Config Name="NODE_ENV" Target="NODE_ENV" Default="production" Mode="" Description="Node runtime environment" Type="Variable" Display="advanced" Required="true">production</Config>
+  <Config Name="OPENCLAW_GATEWAY_BIND" Target="OPENCLAW_GATEWAY_BIND" Default="lan" Mode="" Description="Bind Gateway to the Docker network so Unraid can reach the published port" Type="Variable" Display="advanced" Required="true">lan</Config>
+  <Config Name="OPENCLAW_GATEWAY_PORT" Target="OPENCLAW_GATEWAY_PORT" Default="18789" Mode="" Description="Gateway listen port inside the container" Type="Variable" Display="advanced" Required="true">18789</Config>
+  <Config Name="OPENCLAW_SKIP_SERVICE_CHECK" Target="OPENCLAW_SKIP_SERVICE_CHECK" Default="true" Mode="" Description="Skip native service checks in the container" Type="Variable" Display="advanced" Required="true">true</Config>
+</Container>
