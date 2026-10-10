@@ -19,9 +19,6 @@ on:
     paths:
       - 'Dockerfile'
       - '.github/workflows/build-image.yml'
-  schedule:
-    # Build daily at 00:00 UTC to get latest OpenClaw updates
-    - cron: '0 0 * * *'
 
 env:
   REGISTRY: ghcr.io
